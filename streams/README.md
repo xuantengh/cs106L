@@ -35,6 +35,8 @@ To read the entire line, use:
 
 `::std::iostream` is both `istream` & `ostream`.
 
+### StringStreams
+
 ```cpp
 ::std::string input = “5 seventy 2”;
 
@@ -43,6 +45,8 @@ int x; ::std::string y; int z;
 i >> x >> y >> z;
 ::std::cout << z << ::std::endl;
 ```
+
+Stringstreams could be exploited to format output in C++.
 
 ## String Internals
 
