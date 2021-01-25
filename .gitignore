@@ -32,4 +32,4 @@
 *.app
 
 # macOS layout
-.DS_Store
+**/.DS_Store
