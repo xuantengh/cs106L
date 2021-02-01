@@ -15,17 +15,33 @@ using std::unordered_map;   using std::unordered_set;
  *
  * If you used any helper functions, just put them above this function.
  */
-unordered_set<string> findWikiLinks(const string& inp) {
+unordered_set<string> findWikiLinks(const string& page_html) {
     // TODO: Remove all the code in this function and fill
     //       in with your findWikiLinks code from part A
 
-    errorPrint();
-    errorPrint("If you are seeing this message, you haven't implemented");
-    errorPrint("the find_wiki_links method in wikiscraper.cpp.");
-    errorPrint();
-    cout << endl;
-    return {};
+    unordered_set<string> wiki_links;    
+    const string LINK_HEAD = "href=";
+    const size_t STEP = LINK_HEAD.size() + 1;
 
+    const char HASH = '#', COLON = ':';
+    string cur_link;
+    auto iter_search = search(page_html.begin(), page_html.end(), LINK_HEAD.begin(), LINK_HEAD.end());
+
+    while (iter_search != page_html.end()) {
+        iter_search += STEP;
+        auto iter_find = std::find(iter_search, page_html.end(), '"');
+        if (iter_find != page_html.end()) {
+            cur_link = string(iter_search, iter_find);
+            string tmp = cur_link.substr(0, 6);
+            if (tmp == "/wiki/" && all_of(cur_link.begin(), cur_link.end(), [](const char c) -> bool {
+                    return c != HASH && c != COLON; })) {
+                wiki_links.insert(cur_link.substr(6));
+            }
+        }
+        iter_search = search(iter_search, page_html.end(), LINK_HEAD.begin(), LINK_HEAD.end());
+    }
+
+    return wiki_links;
 }
 
 

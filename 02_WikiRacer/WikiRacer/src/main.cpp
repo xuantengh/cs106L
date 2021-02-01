@@ -36,7 +36,50 @@ vector<string> findWikiLadder(const string& start_page, const string& end_page) 
     //       3. Finally, implement this function per Part B in the handout!
     //
     //                Best of luck!
-    return {"File reading works!", start_page, end_page};
+    // return {"File reading works!", start_page, end_page};
+
+    WikiScraper scraper;
+    auto target_set = scraper.getLinkSet(end_page); // set of links
+
+    std::vector<string> ladder;
+    ladder.push_back(start_page);
+
+    // heuristic function, compare similarity with target set to determine the priority
+    auto cmp_func = [&](const vector<string>& a, const vector<string>& b) -> bool {
+
+        auto a_set = scraper.getLinkSet(a.back());
+        vector<string> a_common;
+        std::set_intersection(a_set.begin(), a_set.end(), target_set.begin(), target_set.end(), std::back_inserter(a_common));
+
+        auto b_set = scraper.getLinkSet(b.back());
+        vector<string> b_common;
+        std::set_intersection(b_set.begin(), b_set.end(), target_set.begin(), target_set.end(), std::back_inserter(b_common));
+
+        return a_common.size() < b_common.size();
+    };
+
+    priority_queue<vector<string>, vector<vector<string>>, decltype(cmp_func)> pq(cmp_func);
+    pq.push(ladder);
+
+    while (!pq.empty()) {
+        ladder = pq.top();
+        pq.pop();
+
+        auto links = scraper.getLinkSet(ladder.back());
+
+        if (links.find(end_page) != links.end()) {
+            ladder.push_back(end_page);
+            return ladder;
+        } else {
+            for (const auto& link: links) {
+                auto new_ladder = ladder;
+                new_ladder.push_back(link);
+                pq.push(new_ladder);
+            }
+        }
+    }
+
+    return {};
 }
 
 int main() {
@@ -53,8 +96,11 @@ int main() {
     //       and append that vector to outputLadders.
 
     // Write code here
-
-
+    ifstream fin(filename, std::ifstream::in);
+    string start_page, end_page;
+    while (fin >> start_page >> end_page) {
+        outputLadders.push_back(findWikiLadder(start_page, end_page));
+    }
 
     /*
      * Print out all ladders in outputLadders.
