@@ -10,6 +10,7 @@ This repo contains lecture notes and code implementations, as well as assignment
 - Streams: [slides](http://web.stanford.edu/class/cs106l/lectures/WL4_Streams.pdf)
 - Containers: [slides](http://web.stanford.edu/class/cs106l/lectures/WL5_Containers.pdf)
 - Iterators: [slides](http://web.stanford.edu/class/cs106l/lectures/WL6_Iterators.pdf)
+- Template Functions: [slides](http://web.stanford.edu/class/cs106l/lectures/WL7_Templates.pdf)
 
 ## Assignments
 - WikiRacer: [codes](./02_WikiRacer/WikiRacer/src)
