@@ -11,6 +11,7 @@ This repo contains lecture notes and code implementations, as well as assignment
 - Containers: [slides](http://web.stanford.edu/class/cs106l/lectures/WL5_Containers.pdf)
 - Iterators: [slides](http://web.stanford.edu/class/cs106l/lectures/WL6_Iterators.pdf)
 - Template Functions: [slides](http://web.stanford.edu/class/cs106l/lectures/WL7_Templates.pdf)
+- Functions: [slides](http://web.stanford.edu/class/cs106l/lectures/WL8_Functions.pdf)
 
 ## Assignments
 - WikiRacer: [codes](./02_WikiRacer/WikiRacer/src)
