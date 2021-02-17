@@ -149,8 +149,24 @@ void HashMap<K, M, H>::rehash(size_t new_bucket_count) {
 
         // Hint: you should NOT call insert, and you should not call
         // new or delete in this function. You must reuse existing nodes.
+
+    std::vector<node*> new_buckets_array(new_bucket_count, nullptr);
+    for (size_t index = 0; index < _buckets_array.size(); ++index) {
+        node* curr_node = _buckets_array[index], *next_node;
+        while (curr_node != nullptr) {
+            next_node = curr_node->next;
+            const auto& [key, mapped] = curr_node->value;
+            auto new_index = _hash_function(key) % new_bucket_count;
+            // insert into corresponding position
+            curr_node->next = new_buckets_array[new_index];
+            new_buckets_array[new_index] = curr_node;
+
+            curr_node = next_node;
+        }
+    }
     
-    
+    // assign class member to new value
+    _buckets_array = new_buckets_array;
 
     /* end student code */
 }

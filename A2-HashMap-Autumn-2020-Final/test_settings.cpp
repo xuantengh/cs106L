@@ -2,7 +2,7 @@
 
 // Use this to run on the test harness
 // 0 = run student_main, 1 = run test harness
-#define RUN_TEST_HARNESS 0
+#define RUN_TEST_HARNESS 1
 
 // Change the 0 to a 1 to run that test
 // Note that milestone 2 and 3 tests won't compile until their respective functions
@@ -18,8 +18,8 @@
 // 3C - move constructor + assignment   (tests efficiency, will not pass if you only implemented copy)
 
 // Milestone 1 is optional
-#define RUN_TEST_1A 0
-#define RUN_TEST_1B 0
+#define RUN_TEST_1A 1
+#define RUN_TEST_1B 1
 
 // Milestone 2 and 3 are required
 #define RUN_TEST_2A 0
