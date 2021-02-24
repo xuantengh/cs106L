@@ -12,6 +12,8 @@ This repo contains lecture notes and code implementations, as well as assignment
 - Iterators: [slides](http://web.stanford.edu/class/cs106l/lectures/WL6_Iterators.pdf)
 - Template Functions: [slides](http://web.stanford.edu/class/cs106l/lectures/WL7_Templates.pdf)
 - Functions: [slides](http://web.stanford.edu/class/cs106l/lectures/WL8_Functions.pdf)
+- Template Classes: [slides](http://web.stanford.edu/class/cs106l/lectures/WL10_Temp_classes.pdf)
+- Const-Correctness: [slides](http://web.stanford.edu/class/cs106l/lectures/WL11_Const.pdf)
 
 ## Assignments
 - WikiRacer: [codes](./02_WikiRacer/WikiRacer/src)
