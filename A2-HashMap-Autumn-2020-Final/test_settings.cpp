@@ -22,10 +22,10 @@
 #define RUN_TEST_1B 1
 
 // Milestone 2 and 3 are required
-#define RUN_TEST_2A 0
-#define RUN_TEST_2B 0
-#define RUN_TEST_2C 0
-#define RUN_TEST_2D 0
+#define RUN_TEST_2A 1
+#define RUN_TEST_2B 1
+#define RUN_TEST_2C 1
+#define RUN_TEST_2D 1
 #define RUN_TEST_3A 0
 #define RUN_TEST_3B 0
 #define RUN_TEST_3C 0

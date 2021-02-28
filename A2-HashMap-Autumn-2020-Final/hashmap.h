@@ -262,6 +262,7 @@ public:
     * mapped value.
     */
     M& at(const K& key);
+    M& at(const K& key) const; // add a const version
 
     /*
     * Function that will print to std::cout the contents of the hash table as

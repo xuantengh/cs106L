@@ -13,6 +13,7 @@
 */
 
 #include "hashmap.h"
+#include <unordered_set>
 
 
 template <typename K, typename M, typename H>
@@ -82,6 +83,16 @@ std::pair<typename HashMap<K, M, H>::value_type*, bool>
 
 template <typename K, typename M, typename H>
 M& HashMap<K, M, H>::at(const K& key) {
+   auto [prev, node_found] = find_node(key);
+   if (node_found == nullptr) {
+       throw std::out_of_range("HashMap<K, M, H>::at: key not found");
+   }
+   return node_found->value.second;
+}
+
+// add a const version
+template <typename K, typename M, typename H>
+M& HashMap<K, M, H>::at(const K& key) const {
    auto [prev, node_found] = find_node(key);
    if (node_found == nullptr) {
        throw std::out_of_range("HashMap<K, M, H>::at: key not found");
@@ -187,3 +198,64 @@ void HashMap<K, M, H>::rehash(size_t new_bucket_count) {
         - move constructor
         - move assignment
 */
+
+// operator []
+template <typename K, typename M, typename H>
+M& HashMap<K, M, H>::operator[](const K& key) {
+    auto [prev, curr] = find_node(key);
+    if (curr == nullptr) { // key not in hashmap
+        insert(std::make_pair(key, M())); // use default value of M
+        auto [new_prev, new_curr] = find_node(key);
+        return new_curr->value.second;
+    } else { // key in hashmap
+        return curr->value.second;
+    }
+}
+
+template<typename K, typename M, typename H>
+std::ostream& operator<<(std::ostream& out, const HashMap<K, M, H>& hashmap) {
+    std::vector<typename HashMap<K, M, H>::value_type> pair_vec;
+    out << '{';
+    // move all the pairs into a linear vector
+    for (size_t i = 0; i < hashmap.bucket_count(); ++i) {
+        auto curr_node = hashmap._buckets_array[i];
+        while (curr_node != nullptr) {
+            pair_vec.push_back(curr_node->value); 
+            curr_node = curr_node->next;
+        }
+    }
+    // output
+    for (size_t i = 0; i < pair_vec.size(); ++i) {
+        const auto& [key, mapped] = pair_vec[i];
+        out << key << ':' << mapped;
+        if (i < pair_vec.size() - 1) {
+            out << ", "; // if there are (key, mapped) pairs left
+        }
+    }
+    out << '}'; // finish
+    return out;
+}
+
+template<typename K, typename M, typename H>
+bool operator==(const HashMap<K, M, H>& lhs, const HashMap<K, M, H>& rhs) {
+    // reference from check_map_equal function in tests.cpp
+    if (lhs.empty() != rhs.empty() || lhs.size() != rhs.size()) {
+        return false;
+    }
+    for (size_t i = 0; i < lhs.bucket_count(); ++i) {
+        auto curr_node = lhs._buckets_array[i];
+        while (curr_node != nullptr) {
+            auto [key, mapped] = curr_node->value;
+            if (rhs.contains(key) == false || rhs.at(key) != mapped) {
+                return false;
+            }
+            curr_node = curr_node->next;
+        }
+    }
+    return true;
+}
+
+template<typename K, typename M, typename H>
+bool operator!=(const HashMap<K, M, H>& lhs, const HashMap<K, M, H>& rhs) {
+    return !(lhs == rhs); 
+}
