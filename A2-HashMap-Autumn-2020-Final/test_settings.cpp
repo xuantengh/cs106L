@@ -26,7 +26,7 @@
 #define RUN_TEST_2B 1
 #define RUN_TEST_2C 1
 #define RUN_TEST_2D 1
-#define RUN_TEST_3A 0
+#define RUN_TEST_3A 1
 #define RUN_TEST_3B 0
 #define RUN_TEST_3C 0
 

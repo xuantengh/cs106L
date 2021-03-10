@@ -245,7 +245,7 @@ bool operator==(const HashMap<K, M, H>& lhs, const HashMap<K, M, H>& rhs) {
     for (size_t i = 0; i < lhs.bucket_count(); ++i) {
         auto curr_node = lhs._buckets_array[i];
         while (curr_node != nullptr) {
-            auto [key, mapped] = curr_node->value;
+            const auto& [key, mapped] = curr_node->value;
             if (rhs.contains(key) == false || rhs.at(key) != mapped) {
                 return false;
             }
@@ -258,4 +258,22 @@ bool operator==(const HashMap<K, M, H>& lhs, const HashMap<K, M, H>& rhs) {
 template<typename K, typename M, typename H>
 bool operator!=(const HashMap<K, M, H>& lhs, const HashMap<K, M, H>& rhs) {
     return !(lhs == rhs); 
+}
+
+// copy constructor
+template<typename K, typename M, typename H>
+HashMap<K, M, H>::HashMap(const HashMap<K, M, H>& other) {
+    *this = other;
+}
+
+// move constructor
+template<typename K, typename M, typename H>
+HashMap<K, M, H>::HashMap(HashMap<K, M, H>&& other) {
+    if (&other != this) {
+        this->clear();
+        this->_size = other._size;
+        this->_buckets_array = other._buckets_array;
+        // reset other
+        other.clear();
+    }
 }

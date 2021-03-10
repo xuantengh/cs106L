@@ -17,3 +17,4 @@ This repo contains lecture notes and code implementations, as well as assignment
 
 ## Assignments
 - WikiRacer: [codes](./02_WikiRacer/WikiRacer/src)
+- HashMap: [codes](./A2-HashMap-Autumn-2020-Final)

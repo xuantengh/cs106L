@@ -94,6 +94,11 @@ public:
     */
     explicit HashMap(size_t bucket_count, const H& hash = H());
 
+    // milestone 3 copy constructor and move constructor
+    explicit HashMap(const HashMap<K, M, H>&);
+
+    explicit HashMap(HashMap<K, M, H>&&);
+
     /*
     * Destructor.
     *
@@ -423,6 +428,38 @@ private:
     friend bool operator!=(const HashMap<K_, M_, H_>& lhs,
        const HashMap<K_, M_, H_>& rhs);
 
+public:
+    // copy assignment
+    HashMap& operator=(const HashMap& other) {
+        if (&other != this) { // make sure these are two different objects
+            this->clear();
+            // set proper values for class members
+            this->_buckets_array = std::vector<node*>(other.bucket_count(), nullptr);
+            this->_size = 0;
+            for (size_t i = 0; i < this->bucket_count(); ++i) {
+                auto curr_node = other._buckets_array[i];
+                while (curr_node != nullptr) {
+                    const auto value_pair = curr_node->value;
+                    this->insert(value_pair);            
+                    curr_node = curr_node->next;
+                }
+            }   
+        }
+        return *this;
+    }
+
+    // move assignment
+    HashMap& operator=(HashMap&& other) {
+        if (&other != this) {
+            this->clear();
+            this->_size = other._size;
+            this->_buckets_array = other._buckets_array;
+            // reset other
+            other.clear();
+        }
+
+        return *this;
+    }
 
 };
 
