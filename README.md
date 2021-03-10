@@ -14,6 +14,8 @@ This repo contains lecture notes and code implementations, as well as assignment
 - Functions: [slides](http://web.stanford.edu/class/cs106l/lectures/WL8_Functions.pdf)
 - Template Classes: [slides](http://web.stanford.edu/class/cs106l/lectures/WL10_Temp_classes.pdf)
 - Const-Correctness: [slides](http://web.stanford.edu/class/cs106l/lectures/WL11_Const.pdf)
+- Operators: [slides](http://web.stanford.edu/class/cs106l/lectures/WL12_Operators.pdf)
+- Special Member Functions: [slides](http://web.stanford.edu/class/cs106l/lectures/WL13_SMF.pdf)
 
 ## Assignments
 - WikiRacer: [codes](./02_WikiRacer/WikiRacer/src)
