@@ -95,9 +95,9 @@ public:
     explicit HashMap(size_t bucket_count, const H& hash = H());
 
     // milestone 3 copy constructor and move constructor
-    explicit HashMap(const HashMap<K, M, H>&);
+    HashMap(const HashMap<K, M, H>&);
 
-    explicit HashMap(HashMap<K, M, H>&&);
+    HashMap(HashMap<K, M, H>&&);
 
     /*
     * Destructor.
@@ -451,11 +451,9 @@ public:
     // move assignment
     HashMap& operator=(HashMap&& other) {
         if (&other != this) {
-            this->clear();
-            this->_size = other._size;
-            this->_buckets_array = other._buckets_array;
-            // reset other
-            other.clear();
+            this->clear(); // release current data members
+            this->_size = std::move(other._size);
+            this->_buckets_array = std::move(other._buckets_array);
         }
 
         return *this;
